@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "spring-boot-helm.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "spring-boot-helm.name" . }}
+    helm.sh/chart: {{ include "spring-boot-helm.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - name: http
+      port: {{ .Values.service.port }}
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: {{ include "spring-boot-helm.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}

@@ -1,0 +1,39 @@
+#apiVersion: networking.k8s.io/v1beta1
+#kind: Ingress
+#metadata:
+#  name: spring-boot-app-ingress
+#  annotations:
+#    app.kubernetes.io/ingress.class: nginx
+#    nginx.ingress.kubernetes.io/rewrite-path: /
+#spec:
+#  rules:
+#    - host: springbootapp.com
+#      http:
+#        paths:
+#          - path: /
+#            backend:
+#              serviceName: spring-boot-helm
+#              servicePort: 8080
+#          - path: "/argo"
+#            backend:
+#              serviceName: spring-boot-argo
+#              servicePort: 8080
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: spring-boot-app-ingress
+  annotations:
+    app.kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    - http:
+        paths:
+          - pathType: Prefix
+            path: "/helm"
+            backend:
+              service:
+                name: spring-boot-helm
+                port:
+                  number: 8080
