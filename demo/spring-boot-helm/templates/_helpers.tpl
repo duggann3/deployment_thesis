@@ -30,3 +30,9 @@ Create chart name and version as used by the chart label.
 {{- define "spring-boot-helm.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
+
+{{/* Environment variables*/}}
+{{- define "application.env_vars" -}}
+- name: "DEPLOYMENT_TIME"
+  value: {{ default "N/A" .Values.deploymentTime | quote }}
+{{ end -}}

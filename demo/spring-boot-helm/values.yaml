@@ -1,8 +1,8 @@
 replicaCount: 3
 image:
-  repository: "localhost:5000/spring-boot-helm-blue"
-  tag: "1.0"
-  pullPolicy: IfNotPresent
+  repository: "localhost:5000/spring-boot-helm"
+  tag: "1.1"
+  pullPolicy: Always
 service:
   type: ClusterIP
   port: 8080

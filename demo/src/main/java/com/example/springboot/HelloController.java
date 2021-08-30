@@ -33,7 +33,7 @@ public class HelloController {
 
     @RequestMapping("/")
     public String index() {
-        return "BLUE ARGO ROLLOUTS";
+        return "ARGO DEPLOYED APP VERSION 1.1";
     }
 
 }

@@ -1,32 +1,31 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
-  name: rollouts-demo
+  name: spring-boot-argo-rollout
 spec:
-  replicas: 5
+  replicas: 3
   strategy:
-    canary:
-      steps:
-        - setWeight: 20
-        - pause: {}
-        - setWeight: 40
-        - pause: {duration: 10}
-        - setWeight: 60
-        - pause: {duration: 10}
-        - setWeight: 80
-        - pause: {duration: 10}
+#    canary:
+#      steps:
+#        - setWeight: 33
+#        - pause: {}
+#        - setWeight: 66
+#        - pause: {duration: 10}
+    blueGreen:
+      activeService: spring-boot-argo-rollout
+      autoPromotionEnabled: false
   revisionHistoryLimit: 2
   selector:
     matchLabels:
-      app: rollouts-demo
+      app: spring-boot-argo-rollout
   template:
     metadata:
       labels:
-        app: rollouts-demo
+        app: spring-boot-argo-rollout
     spec:
       containers:
-        - name: rollouts-demo
-          image: localhost:5000/spring-boot-argo-rollouts-blue:1.0
+        - name: spring-boot-argo-rollout
+          image: localhost:5000/spring-boot-argo-rollout:1.0
           ports:
             - name: http
               containerPort: 8080
